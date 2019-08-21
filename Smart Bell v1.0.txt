@@ -1,0 +1,187 @@
+[
+    {
+        "id": "df162012.c22d5",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "9b2ee99d.9a1dd8",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "broker.mqtt-dashboard.com",
+        "broker": "broker.mqtt-dashboard.com",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    },
+    {
+        "id": "fa56a1f.33aed6",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    },
+    {
+        "id": "a578450b.a1d328",
+        "type": "e-mail",
+        "z": "df162012.c22d5",
+        "server": "smtp.gmail.com",
+        "port": "465",
+        "secure": true,
+        "name": "frostmail49@gmail.com",
+        "dname": "",
+        "x": 590,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "d007cce2.7c629",
+        "type": "e-mail in",
+        "z": "df162012.c22d5",
+        "name": "Reply",
+        "protocol": "IMAP",
+        "server": "imap.gmail.com",
+        "useSSL": true,
+        "port": "993",
+        "box": "INBOX",
+        "disposition": "Read",
+        "repeat": "30",
+        "x": 130,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "564bcfe4.df1",
+        "type": "mqtt out",
+        "z": "df162012.c22d5",
+        "name": "",
+        "topic": "room/alert",
+        "qos": "",
+        "retain": "",
+        "broker": "9b2ee99d.9a1dd8",
+        "x": 540,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "72116a92.a39e34",
+        "type": "mqtt in",
+        "z": "df162012.c22d5",
+        "name": "",
+        "topic": "room/notify",
+        "qos": "2",
+        "broker": "9b2ee99d.9a1dd8",
+        "x": 140,
+        "y": 140,
+        "wires": [
+            [
+                "c4d44478.4af828"
+            ]
+        ]
+    },
+    {
+        "id": "c4d44478.4af828",
+        "type": "change",
+        "z": "df162012.c22d5",
+        "name": "Proses",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Ada orang",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 140,
+        "wires": [
+            [
+                "a578450b.a1d328"
+            ]
+        ]
+    },
+    {
+        "id": "f415ce1a.1564e",
+        "type": "change",
+        "z": "df162012.c22d5",
+        "name": "Menerima",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "on",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 360,
+        "y": 200,
+        "wires": [
+            [
+                "564bcfe4.df1"
+            ]
+        ]
+    },
+    {
+        "id": "787a86f8.94fb88",
+        "type": "inject",
+        "z": "df162012.c22d5",
+        "name": "",
+        "topic": "Notifier v.1.0",
+        "payload": "ada tamu",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 180,
+        "y": 260,
+        "wires": [
+            [
+                "f415ce1a.1564e"
+            ]
+        ]
+    }
+]
